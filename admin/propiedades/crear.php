@@ -27,13 +27,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // var_dump($_POST);
   // echo "</pre>";
 
-  $titulo = $_POST['titulo'];
-  $precio = $_POST['precio'];
-  $descripcion = $_POST['descripcion'];
-  $habitaciones = $_POST['habitaciones'];
-  $wc = $_POST['wc'];
-  $estacionamiento = $_POST['estacionamiento'];
-  $vendedores_id = $_POST['vendedores_id'];
+  $titulo = mysqli_real_escape_string($db, $_POST['titulo']);
+  $precio = mysqli_real_escape_string($db, $_POST['precio']);
+  $descripcion = mysqli_real_escape_string($db, $_POST['descripcion']);
+  $habitaciones = mysqli_real_escape_string($db, $_POST['habitaciones']);
+  $wc = mysqli_real_escape_string($db, $_POST['wc']);
+  $estacionamiento = mysqli_real_escape_string($db, $_POST['estacionamiento']);
+  $vendedores_id = mysqli_real_escape_string($db, $_POST['vendedores_id']);
   $creado =  date('Y/m/d');
 
   if (!$titulo) {
@@ -130,7 +130,7 @@ incluirTemplate('header');
       <select name="vendedores_id">
         <option value="">-- Seleccione --</option>
         <?php while ($vendedor = mysqli_fetch_assoc($resultado)): ?>
-          <option <?php echo $vendedores_id === $vendedor['apellido'] ? 'selected' : ''; ?> value="<?php echo $vendedor['id']; ?>"> <?php echo $vendedor ['nombre'] . " " . $vendedor['apellido']; ?></option>
+          <option <?php echo $vendedores_id === $vendedor['apellido'] ? 'selected' : ''; ?> value="<?php echo $vendedor['id']; ?>"> <?php echo $vendedor['nombre'] . " " . $vendedor['apellido']; ?></option>
 
         <?php endwhile; ?>
       </select>
