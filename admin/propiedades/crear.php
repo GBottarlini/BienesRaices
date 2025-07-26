@@ -36,6 +36,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $vendedores_id = mysqli_real_escape_string($db, $_POST['vendedores_id']);
   $creado =  date('Y/m/d');
 
+  // Asignar files hacia una variable
+  $imagen = $_FILES['imagen'];
+
+
+
   if (!$titulo) {
     $errores[] = "Debes añadir un titulo";
   }
@@ -57,7 +62,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if (!$vendedores_id) {
     $errores[] = "Elige un Vendedor";
   }
+  if(!$imagen['name'] || $imagen['error'] ) {
+    $errores[] = "La imagen es Obligatoria";
+  }
 
+  // Validar por tamaño
+  $medida = 100 * 100;
+
+  if($imagen['size'] > $medida ) {
+    $errores[] = 'La Imagen es muy pesada';
+  }
 
   // Revisar que el array de errores este vacio
 
@@ -94,7 +108,7 @@ incluirTemplate('header');
   <?php endforeach; ?>
 
 
-  <form class="formulario" method="POST" action="/admin/propiedades/crear.php">
+  <form class="formulario" method="POST" action="/admin/propiedades/crear.php" enctype="multipart/form-data">
     <fieldset>
       <legend>Informacion General</legend>
 
@@ -105,7 +119,7 @@ incluirTemplate('header');
       <input type="number" id="precio" name="precio" placeholder="Precio Propiedad" value="<?php echo $precio; ?>">
 
       <label for="imagen">Imagen:</label>
-      <input type="file" id="imagen" accept="image/jpeg, image/png">
+      <input type="file" id="imagen" accept="image/jpeg, image/png" name="imagen">
 
       <label for="descripcion">Descripcion:</label>
       <textarea id="descripcion" name="descripcion"><?php echo $descripcion; ?></textarea>
