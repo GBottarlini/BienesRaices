@@ -1,0 +1,7 @@
+node_modules
+info.php
+# Dependencias de Node
+/node_modules
+
+
+/build
