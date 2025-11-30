@@ -1,5 +1,12 @@
 <?php
 
+require '../../includes/funciones.php';
+$auth = estaAutenticado();
+if (!$auth) {
+  header('Location: /');
+}
+
+
 // Validar la URL por ID valido
 $id = $_GET['id'];
 $id = filter_var($id, FILTER_VALIDATE_INT);
@@ -14,7 +21,7 @@ require '../../includes/config/database.php';
 $db = conectarDB();
 
 // consultar para obtener los datos de la propiedad
-$consultaPropiedad = "SELECT * FROM propiedades WHERE id = ${id}";
+$consultaPropiedad = "SELECT * FROM propiedades WHERE id = $id";
 $resultadoPropiedad = mysqli_query($db, $consultaPropiedad);
 $propiedad = mysqli_fetch_assoc($resultadoPropiedad);
 
@@ -135,7 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 
-require '../../includes/funciones.php';
+
 incluirTemplate('header');
 ?>
 

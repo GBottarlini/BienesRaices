@@ -1,7 +1,8 @@
 node_modules
 info.php
+usuario.php
+
+
 # Dependencias de Node
 /node_modules
-
-
 /build

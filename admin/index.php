@@ -1,5 +1,11 @@
 <?php
 
+require '../includes/funciones.php';
+$auth = estaAutenticado();
+if (!$auth) {
+    header('Location: /');
+}
+
 // Importa la conexión
 require '../includes/config/database.php';
 $db = conectarDB();
@@ -14,11 +20,11 @@ $resultadoConsulta = mysqli_query($db, $query);
 // Muestra mensaje condicional
 $resultado = $_GET['resultado'] ?? null;
 
-if($_SERVER['REQUEST_METHOD'] === 'POST' ){
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = $_POST['id'];
     $id = filter_var($id, FILTER_VALIDATE_INT);
 
-    if($id) {
+    if ($id) {
 
         // Eliminar el archivo
         $query = "SELECT imagen FROM propiedades WHERE id = $id";
@@ -31,16 +37,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' ){
         $query = "DELETE FROM propiedades WHERE id = $id";
         $resultado = mysqli_query($db, $query);
 
-        if($resultado) {
+        if ($resultado) {
 
             header('Location: /admin?resultado=3');
         }
     }
-
 }
 
 // Incluye un template
-require '../includes/funciones.php';
+
 incluirTemplate('header');
 ?>
 
