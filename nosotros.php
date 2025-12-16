@@ -1,5 +1,5 @@
 <?php
-require 'includes/funciones.php';
+require 'includes/app.php';
 incluirTemplate('header');
 ?>
 <main class="contenedor seccion">
@@ -8,8 +8,8 @@ incluirTemplate('header');
   <div class="contenido-nosotros">
     <div class="imagen">
       <picture>
-        <source srcset="build/img/nosotros.webp" type="image/webp">
         <source srcset="build/img/nosotros.jpg" type="image/jpeg">
+        <source srcset="build/img/nosotros.webp" type="image/webp">
         <img loading="lazy" src="build/img/nosotros.jpg" alt="Sobre Nosotros">
       </picture>
     </div>
